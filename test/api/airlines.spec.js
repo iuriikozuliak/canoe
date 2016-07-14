@@ -10,7 +10,32 @@ describe('airlines API', function() {
     it('returns airlines list', async function() {
       await request.get('/airlines')
         .expect(200, {
-          data: ['Ryanair']
+          data: [
+            {
+              "code": "SU",
+              "name": "Aeroflot"
+            },
+            {
+              "code": "MU",
+              "name": "China Eastern"
+            },
+            {
+              "code": "EK",
+              "name": "Emirates"
+            },
+            {
+              "code": "KE",
+              "name": "Korean Air lines"
+            },
+            {
+              "code": "QF",
+              "name": "Qantas"
+            },
+            {
+              "code": "SQ",
+              "name": "Singapore Airlines"
+            }
+          ]
         });
     });
   });

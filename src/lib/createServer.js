@@ -4,7 +4,8 @@ import convert         from 'koa-convert';
 import cors            from 'kcors';
 import respond         from 'koa-respond';
 import bodyParser      from 'koa-bodyparser';
-import makeApi         from 'api/airlines';
+import airlinesAPI         from 'api/airlines';
+import airportsAPI         from 'api/airports';
 
 export default async function createServer() {
   const app = new Koa();
@@ -14,7 +15,8 @@ export default async function createServer() {
   app.use(convert(cors()));
   app.use(bodyParser());
 
-  makeApi(router);
+  airlinesAPI(router);
+  airportsAPI(router);
 
   app.use(router.allowedMethods());
   app.use(router.routes());
