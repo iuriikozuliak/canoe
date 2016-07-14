@@ -7,7 +7,9 @@
     "npm": ">=3.8"
   },
   "scripts": {
+    "babel-node": "babel-node --presets=es2015-node6",
     "start": "node dist/bin/server.js",
+    "dev": "nodemon --exec npm run babel-node -- server/bin/server.js",
     "build": "babel src -d dist -s",
     "test": "mocha test/**/*.js --compilers js:babel-register --require test/_helpers",
     "test-watch": "npm run test -- --watch"

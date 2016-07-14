@@ -4,7 +4,7 @@ const makeApi = (service) => {
   const get = async (ctx) => {
     const data = await service.get();
 
-    return ctx.ok({ data });
+    return ctx.ok(data);
   };
 
   const post = async (ctx) => {
