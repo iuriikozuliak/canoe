@@ -1,17 +1,19 @@
 import template from './utils/template';
+import request  from 'superagent';
+import Results  from './components/results';
 
 class App {
   constructor() {
     this.$el = document.getElementById('app');
-
-    this.render({ 
-      message: 'happening', 
-      airlines: ['Ryanair', 'Wizzair']}
-    )
+    this.getData();
   }
-  render({ message, airlines }) {
-    this.$el.innerHTML = template`
-      It's ${ message }: ${ airlines.map(v => `<p>${v}</p>`) }`;
+  async getData() {
+    const res = await request.get('/search?date=2016-09-02&from=SYD&to=JFK');
+
+    this.render({ flights: res.body })
+  }
+  render(props) {
+    this.$el.innerHTML = Results(props);
   };
 }
 
