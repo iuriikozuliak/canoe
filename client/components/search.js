@@ -1,4 +1,5 @@
 import template from '../utils/template';
+import styles   from '../styles/search.scss';
 
 export default class Search {
   constructor() {
@@ -18,10 +19,12 @@ export default class Search {
     const field  = (name) => `<input type="text" ${query[name] && `value=${query[name]}`} name=${name} />`;
     
     return template`
-      <form action="#" id="search-form">
-        ${['from', 'to', 'date'].map(field)}
-        <input type="submit" value="Submit" />
-      </form>
+      <div class=${ styles.canoe__search }>
+        <form action="#" id="search-form">
+          ${['from', 'to', 'date'].map(field)}
+          <input type="submit" value="Submit" />
+        </form>
+      </div>
   `;
   }
 };

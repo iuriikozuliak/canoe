@@ -3,7 +3,7 @@ import template from './utils/template';
 import getQuery from './utils/getQuery';
 import Results  from './components/results';
 import Search   from './components/search';
-import styles   from "./styles/app.css";
+import styles   from "./styles/app.scss";
 
 class App {
   constructor() {

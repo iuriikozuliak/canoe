@@ -6,7 +6,7 @@ export default ({ flights = [], isLoading }) => {
   }
 
   return template`
-  <div class='canoe-results'>
+  <div class='canoe__results'>
     ${ flights.map(flight => 
         template`<div class='results__item'>${ flight.airline.code }</div>`
     )}
