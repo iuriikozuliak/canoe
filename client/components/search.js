@@ -25,7 +25,7 @@ export default class Search {
       <div class=${ canoe__search }>
         <form action="#" id="search-form">
           ${ ['from', 'to', 'date'].map(SearchField(query)) }
-          <input type="submit" value="Submit" class=${ canoe__search__button } />
+          <button type="submit" class=${ canoe__search__button } >Search</button>
         </form>
       </div>
   `;

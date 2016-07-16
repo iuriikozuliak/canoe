@@ -1,7 +1,7 @@
 .canoe__search {
   position: relative;
   background: #fff;
-  padding: 24px 104px 24px 24px;
+  padding: 14px 124px 14px 14px;
   border: 1px solid #ECECEC;
 
   form {
@@ -10,12 +10,36 @@
 }
 
 .canoe__search__field {
+  font-size: 18px;
   width: 100%;
-  margin-right: 24px;
+  color: #9B9B9B;
+  height: 50px;
+  padding: 0 14px;
+  margin: 0 24px 0 0;
+  border: 1px solid #F3F3F3;
+}
+
+.canoe__search__field,
+.canoe__search__button{
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  line-height: 50px;
+
+  &:focus {
+    outline: none;
+    border: 1px solid #55ACEE; 
+  }
 }
 
 .canoe__search__button {
+  font-size: 14px;
   position: absolute;
-  right: 24px;
-  width: 80px;
+  display: block;
+  height: 51px;
+  right: 14px;
+  width: 110px;
+  border: 0;
+  padding: 0;
+  background: #55ACEE;
+  color: #fff;
 }
