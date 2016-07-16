@@ -6,20 +6,48 @@
 
   form {
     display: flex;
-  }
+  }    
+}
+
+.canoe__search.isFormLoading{
+  cursor: progress;
+  opacity: 0.7;
 }
 
 .canoe__search__item {
-  width: 100%;
   margin: 0 24px 0 0;
+  position: relative;
+  width: 100%;
 }
+
+.canoe__search__options {
+  position: absolute;
+  left:0;
+  right:0;
+
+  p {
+    cursor: pointer;
+    background: #fff;
+    padding: 14px 24px;
+    margin: 0;
+    font-size: 12px;
+    border: 1px solid #ECECEC;
+    border-top:none;
+
+    &:first-child {
+      border-top: 1px solid #ECECEC;
+    }
+  }
+}
+
 .canoe__search__field {
+  box-sizing: border-box;
   font-size: 18px;
-  display: block;
   color: #9B9B9B;
-  height: 50px;
+  width: 100%;
   padding: 0 14px;
   border: 1px solid #F3F3F3;
+  -webkit-appearance: none;
 }
 
 .canoe__search__field,
@@ -27,6 +55,7 @@
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
   line-height: 50px;
+  height: 50px;
 
   &:focus {
     outline: none;
@@ -38,7 +67,6 @@
   font-size: 14px;
   position: absolute;
   display: block;
-  height: 51px;
   right: 14px;
   width: 110px;
   border: 0;

@@ -1,0 +1,35 @@
+.results__item {
+  height: 150px;
+  border: 1px solid #ECECEC;
+  border-top:none;
+  display: flex;
+  align-items: center;
+  padding: 14px 24px 14px 0;
+
+  // wildcards, yay.
+  & > * {
+    flex: 1 auto;
+  }
+}
+
+.results__item__price {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  color: #4A4A4A;
+}
+
+.results__item__airline {
+  font-size: 18px;
+  font-weight: 300;
+  padding-bottom: 14px;
+}
+
+.results__item__info {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.results__item__duration {
+  width: 10%;
+}

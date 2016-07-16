@@ -3,32 +3,53 @@ import template    from '../utils/template';
 import SearchField from './search__field';
 import { 
   canoe__search, 
-  canoe__search__button 
+  canoe__search__button,
+  isFormLoading
 } from '../styles/search.scss';
 
 export default class Search {
   constructor() {
     this.$el     = document.getElementById('search-form');
-    this.$inputs = this.$el.querySelectorAll('input');
+    this.$inputs = this.$el.querySelectorAll('input[type="text"]');
 
-    Array.prototype.forEach.call(this.$inputs, this.attachOnKeyDown(this.onKeyDown));
+    Array.prototype.forEach.call(
+      this.$inputs, 
+      this.attachOnKeyDown(
+        this.onKeyDown(this.onOptionClick)
+      )
+    );
     this.$el.addEventListener('submit', this.onFormSubmit);
   }
   attachOnKeyDown(onKeyDown) {
-    return (el) => el.addEventListener('keydown', onKeyDown);
+    return ($el) => $el.addEventListener('keydown', onKeyDown);
   }
-  async onKeyDown({ target }) {
-    const value = target.value;
-      
-    if (value.length < 3) return;
+  onKeyDown(onOptionClick) {
+    return async ({ target }) => {
+      const value = target.value;
+        
+      if (value.length < 3) return;
 
-    const req = await request
-      .get('/airports')
-      .query({ q: target.value });
+      const req = await request
+        .get('/airports')
+        .query({ q: target.value });
 
-    const options = req.body.map(v => v.airportName);
+      const options = req.body.map(v => 
+        `<p data-code = ${ v.airportCode } >${ v.airportName }</p>`
+      );
+      const $optionsList = target.nextElementSibling;
 
-    return target.nextElementSibling.innerHTML = template`${ options }`;
+      $optionsList.addEventListener('click', onOptionClick);
+      $optionsList.innerHTML = template`${ options }`;
+    }
+  }
+  onOptionClick(e) {
+    const $options = e.currentTarget
+    const $option  = e.target;
+    const $input   = $options.previousElementSibling;
+
+    $input.setAttribute('data-code', $option.dataset.code);
+    $input.value       = $option.dataset.code;
+    $options.innerHTML = '';
   }
   onFormSubmit(e) {
     e.preventDefault();
@@ -36,11 +57,11 @@ export default class Search {
       target: { date, from, to} 
     } = e;
 
-    window.location.hash = `date=${ date.value }&from=${ from.value }&to=${ to.value }`
+    window.location.hash = `date=${ date.value }&from=${ from.dataset.code }&to=${ to.dataset.code }`
   }
-  static render({ query }) {
+  static render({ query, isLoading }) {
     return template`
-      <div class=${ canoe__search }>
+      <div class="${ canoe__search + (isLoading ? ' ' + isFormLoading : '') }">
         <form action="#" id="search-form">
           ${ ['from', 'to', 'date'].map(SearchField(query)) }
           <button type="submit" class=${ canoe__search__button }>Search</button>
