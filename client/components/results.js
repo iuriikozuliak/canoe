@@ -1,9 +1,10 @@
 import template from '../utils/template';
 
-export default ({ flights }) => {
-  if (!flights) {
+export default ({ flights = [], isLoading }) => {
+  if (isLoading) {
     return 'Loading..';
   }
+
   return template`
   <div class='canoe-results'>
     ${ flights.map(flight => 

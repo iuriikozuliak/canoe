@@ -1,8 +1,9 @@
+import request  from 'superagent';
 import template from './utils/template';
 import getQuery from './utils/getQuery';
-import request  from 'superagent';
 import Results  from './components/results';
 import Search   from './components/search';
+import styles   from "./styles/app.css";
 
 class App {
   constructor() {
@@ -23,13 +24,16 @@ class App {
     return data.body;
   }
   updateView({ location }) {
-    const query = getQuery({ location });
+    const query    = getQuery({ location });
+    const hasQuery = Object.keys(query).length !== 0;
     
-    this
+    if (hasQuery) {
+      this
       .getData({ query })
-      .then(flights => this.render({ flights, query }));
-
-    this.render({ query })
+      .then(flights => this.render({ flights, query, isLoading: false }));  
+    }
+    
+    this.render({ query, isLoading: hasQuery });
   }
   async onLoad() {
     this.$el = document.getElementById('app');
@@ -37,9 +41,13 @@ class App {
     this.updateView(window);
   }
   render(props) {
-    this.$el.innerHTML = this.components.reduce((total, component) => (
-      total + (typeof component.render === 'function' ? component.render(props) : component(props))
-    ), '')
+    this.$el.innerHTML = `
+      <div class=${styles.canoe__app}>
+        ${this.components.reduce((total, component) => (
+          total + (typeof component.render === 'function' ? component.render(props) : component(props))
+        ), '')}
+      </div>
+    `;
 
     this.components.forEach(component => (
       typeof component.render === 'function' && new component()
