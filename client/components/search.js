@@ -1,6 +1,10 @@
-import template          from '../utils/template';
-import { canoe__search } from '../styles/search.scss';
-import SearchItem        from './search__item';
+import template    from '../utils/template';
+import SearchField from './search__field';
+import { 
+  canoe__search, 
+  canoe__search__button 
+} from '../styles/search.scss';
+
 
 export default class Search {
   constructor() {
@@ -20,8 +24,8 @@ export default class Search {
     return template`
       <div class=${ canoe__search }>
         <form action="#" id="search-form">
-          ${ ['from', 'to', 'date'].map(SearchItem(query)) }
-          <input type="submit" value="Submit" />
+          ${ ['from', 'to', 'date'].map(SearchField(query)) }
+          <input type="submit" value="Submit" class=${ canoe__search__button } />
         </form>
       </div>
   `;

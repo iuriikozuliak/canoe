@@ -1,4 +1,5 @@
 import template from '../utils/template';
+import styles   from '../styles/results.scss';
 
 export default ({ flights = [], isLoading }) => {
   if (isLoading) {
@@ -6,10 +7,9 @@ export default ({ flights = [], isLoading }) => {
   }
 
   return template`
-  <div class='canoe__results'>
-    ${ flights.map(flight => 
-        template`<div class='results__item'>${ flight.airline.code }</div>`
-    )}
-  </div>
-`;
+    <div class=${ styles.canoe__results }>
+      ${ flights.map(flight => 
+        `<div class='results__item'>${ flight.airline.code }</div>`
+      )}
+    </div>`;
 }

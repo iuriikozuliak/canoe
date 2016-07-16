@@ -3,7 +3,10 @@ import template from './utils/template';
 import getQuery from './utils/getQuery';
 import Results  from './components/results';
 import Search   from './components/search';
-import styles   from "./styles/app.scss";
+import {
+  canoe__app,
+  canoe__app__title
+} from "./styles/app.scss";
 
 class App {
   constructor() {
@@ -42,7 +45,8 @@ class App {
   }
   render(props) {
     this.$el.innerHTML = `
-      <div class=${styles.canoe__app}>
+      <div class=${ canoe__app }>
+        <h2 class=${ canoe__app__title }>Flights:</h2>
         ${this.components.reduce((total, component) => (
           total + (typeof component.render === 'function' ? component.render(props) : component(props))
         ), '')}

@@ -1,3 +1,21 @@
 .canoe__search {
+  position: relative;
   background: #fff;
+  padding: 24px 104px 24px 24px;
+  border: 1px solid #ECECEC;
+
+  form {
+    display: flex;
+  }
+}
+
+.canoe__search__field {
+  width: 100%;
+  margin-right: 24px;
+}
+
+.canoe__search__button {
+  position: absolute;
+  right: 24px;
+  width: 80px;
 }
