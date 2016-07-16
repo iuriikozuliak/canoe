@@ -1,3 +1,4 @@
+import request     from 'superagent';
 import template    from '../utils/template';
 import SearchField from './search__field';
 import { 
@@ -5,12 +6,29 @@ import {
   canoe__search__button 
 } from '../styles/search.scss';
 
-
 export default class Search {
   constructor() {
-    this.$el = document.getElementById('search-form');
+    this.$el     = document.getElementById('search-form');
+    this.$inputs = this.$el.querySelectorAll('input');
 
-    this.$el.addEventListener('submit', this.onFormSubmit)
+    Array.prototype.forEach.call(this.$inputs, this.attachOnKeyDown(this.onKeyDown));
+    this.$el.addEventListener('submit', this.onFormSubmit);
+  }
+  attachOnKeyDown(onKeyDown) {
+    return (el) => el.addEventListener('keydown', onKeyDown);
+  }
+  async onKeyDown({ target }) {
+    const value = target.value;
+      
+    if (value.length < 3) return;
+
+    const req = await request
+      .get('/airports')
+      .query({ q: target.value });
+
+    const options = req.body.map(v => v.airportName);
+
+    return target.nextElementSibling.innerHTML = template`${ options }`;
   }
   onFormSubmit(e) {
     e.preventDefault();
@@ -25,7 +43,7 @@ export default class Search {
       <div class=${ canoe__search }>
         <form action="#" id="search-form">
           ${ ['from', 'to', 'date'].map(SearchField(query)) }
-          <button type="submit" class=${ canoe__search__button } >Search</button>
+          <button type="submit" class=${ canoe__search__button }>Search</button>
         </form>
       </div>
   `;

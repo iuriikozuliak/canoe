@@ -12,7 +12,7 @@ class App {
   constructor() {
     this.components = [Search, Results];
   }
-  async getData({ query }) {
+  async getFlights({ query }) {
     // kill the previous request if still pending
     if (this.req && this.req.xhr.status === 0) { 
       this.req.abort();
@@ -32,8 +32,12 @@ class App {
     
     if (hasQuery) {
       this
-      .getData({ query })
-      .then(flights => this.render({ flights, query, isLoading: false }));  
+        .getFlights({ query })
+        .then(flights => this.render({ 
+          flights, 
+          query, 
+          isLoading: false 
+        }));  
     }
     
     this.render({ query, isLoading: hasQuery });

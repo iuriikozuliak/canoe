@@ -9,13 +9,16 @@
   }
 }
 
+.canoe__search__item {
+  width: 100%;
+  margin: 0 24px 0 0;
+}
 .canoe__search__field {
   font-size: 18px;
-  width: 100%;
+  display: block;
   color: #9B9B9B;
   height: 50px;
   padding: 0 14px;
-  margin: 0 24px 0 0;
   border: 1px solid #F3F3F3;
 }
 
