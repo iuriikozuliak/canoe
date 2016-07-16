@@ -1,5 +1,6 @@
-import template from '../utils/template';
-import styles   from '../styles/search.scss';
+import template          from '../utils/template';
+import { canoe__search } from '../styles/search.scss';
+import SearchItem        from './search__item';
 
 export default class Search {
   constructor() {
@@ -13,15 +14,13 @@ export default class Search {
       target: { date, from, to} 
     } = e;
 
-    window.location.hash = `date=${date.value}&from=${from.value}&to=${to.value}`
+    window.location.hash = `date=${ date.value }&from=${ from.value }&to=${ to.value }`
   }
   static render({ query }) {
-    const field  = (name) => `<input type="text" ${query[name] && `value=${query[name]}`} name=${name} />`;
-    
     return template`
-      <div class=${ styles.canoe__search }>
+      <div class=${ canoe__search }>
         <form action="#" id="search-form">
-          ${['from', 'to', 'date'].map(field)}
+          ${ ['from', 'to', 'date'].map(SearchItem(query)) }
           <input type="submit" value="Submit" />
         </form>
       </div>
