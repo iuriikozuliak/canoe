@@ -1,6 +1,8 @@
 import request     from 'superagent';
 import template    from '../utils/template';
+import attachEvent from '../utils/attachEvent'
 import SearchField from './search__field';
+import _isEqual    from 'lodash/isEqual';
 import { 
   canoe__search, 
   canoe__search__button,
@@ -9,16 +11,29 @@ import {
 
 export default class Search {
   constructor() {
-    this.$el     = document.getElementById('search-form');
+    this.props = {}
+  }
+  init(props) {
+    this.props   = props;
+    this.$el     = document.getElementById('search-form').parentNode;
     this.$inputs = this.$el.querySelectorAll('input[type="text"]');
 
     Array.prototype.forEach.call(
       this.$inputs, 
-      this.attachOnKeyDown(
+      attachEvent(
+        'keydown',
         this.onKeyDown(this.onOptionClick)
       )
     );
     this.$el.addEventListener('submit', this.onFormSubmit);
+  }
+ updateComponent(props) {
+    if (_isEqual(this.props, props)) return;
+
+    const { query } = props; 
+    this.props = props;
+    this.render(props);
+    this.init();
   }
   attachOnKeyDown(onKeyDown) {
     return ($el) => $el.addEventListener('keydown', onKeyDown);
@@ -59,7 +74,7 @@ export default class Search {
 
     window.location.hash = `date=${ date.value }&from=${ from.dataset.code }&to=${ to.dataset.code }`
   }
-  static render({ query, isLoading }) {
+  render({ query, isLoading }) {
     return template`
       <div class="${ canoe__search + (isLoading ? ' ' + isFormLoading : '') }">
         <form action="#" id="search-form">

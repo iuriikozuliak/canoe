@@ -1,4 +1,4 @@
-import request  from 'superagent';
+import moment   from 'moment';
 import template from './utils/template';
 import getQuery from './utils/getQuery';
 import Results  from './components/results';
@@ -10,60 +10,32 @@ import {
 
 class App {
   constructor() {
-    this.components = [Search, Results];
+    this.components = [Search, Results].map(Component => new Component(this));
   }
-  async getFlights({ query }) {
-    // kill the previous request if still pending
-    if (this.req && this.req.xhr.status === 0) { 
-      this.req.abort();
-    }
+  onLoad() {
+    const query = getQuery({ location });
 
-    this.req = request
-      .get('/search')
-      .query(query);
-
-    const data = await this.req;
-
-    return data.body;
-  }
-  updateView({ location }) {
-    const query    = getQuery({ location });
-    const hasQuery = Object.keys(query).length !== 0;
-    
-    if (hasQuery) {
-      this
-        .getFlights({ query })
-        .then(flights => this.render({ 
-          flights, 
-          query, 
-          isLoading: false 
-        }));  
-    }
-    
-    this.render({ query, isLoading: hasQuery });
-  }
-  async onLoad() {
     this.$el = document.getElementById('app');
 
-    this.updateView(window);
+    const dateRange = ((startDate) => [...Array(7)].map(v => 
+      moment(startDate.add(1, 'days')).format('YYYY-MM-DD')
+    ))(moment(query.date).utc().subtract(3, 'days'));
+
+    this.render({ query, dateRange, activeTab: query.date });
   }
   render(props) {
     this.$el.innerHTML = `
       <div class=${ canoe__app }>
         <h2 class=${ canoe__app__title }>Flights:</h2>
-        ${this.components.reduce((total, component) => (
-          total + (typeof component.render === 'function' ? component.render(props) : component(props))
-        ), '')}
+        ${this.components.reduce((total, Component) => total + `<div>${Component.render(props)}</div>`, '')}
       </div>
     `;
 
-    this.components.forEach(component => (
-      typeof component.render === 'function' && new component()
-    ));
+    this.components.forEach(Component => Component.init(props));
   };
 }
 
 const app = new App();
 
 window.addEventListener('load', async () => await app.onLoad());
-window.addEventListener('hashchange', ({ target }) => app.updateView(target));
+window.addEventListener('hashchange', ({ target }) => app.onLoad());

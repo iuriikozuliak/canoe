@@ -1,3 +1,30 @@
+.canoe__results {
+  width: 100%;
+}
+
+.canoe__results__tabs {
+  display: flex;
+  border: 1px solid #ECECEC;
+  border-top: none;
+}
+
+.canoe__results__tab {
+  font-size: 11px;
+  padding: 14px 0;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.canoe__results__tab.isTabActive {
+  background: #55ACEE;
+  color: #fff;
+}
+
+.canoe__results__tab__price {
+  font-weight: bold;
+}
+
 .results__item {
   height: 150px;
   border: 1px solid #ECECEC;

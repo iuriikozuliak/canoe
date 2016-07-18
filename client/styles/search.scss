@@ -22,8 +22,9 @@
 
 .canoe__search__options {
   position: absolute;
-  left:0;
-  right:0;
+  left: 0;
+  right: 0;
+  min-width: 200px;
 
   p {
     cursor: pointer;
