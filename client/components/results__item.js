@@ -21,13 +21,13 @@ export default (flight) => {
           <strong>${ flight.airline.code + flight.flightNum }</strong>
           ${ flight.airline.name }
         </div>
-        <div class="results__item__start">
+        <div>
           <strong>${ moment(flight.start.dateTime).utc().format('HH:mm') }</strong>
           ${ flight.start.airportName }
         </div>
-        <div class="results__item__finish">
-          <strong>${ moment(flight.finish.dateTime).utc().format('HH:mm') }</strong>  
-          ${ flight.finish.airportName } 
+        <div>
+          <strong>${ moment(flight.finish.dateTime).utc().format('HH:mm') }</strong>
+          ${ flight.finish.airportName }
         </div>
       </div>
       <div class=${ results__item__duration }>

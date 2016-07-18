@@ -1,6 +1,6 @@
 import { agent }    from 'supertest';
 import http         from 'http';
-import createServer from '../../src/lib/createServer';
+import createServer from '../../server/lib/createServer';
 import memoize      from 'lodash/memoize';
 
 export default memoize(async () =>

@@ -9,8 +9,7 @@ describe('airlines API', function() {
   describe('GET /airlines', function() {
     it('returns airlines list', async function() {
       await request.get('/airlines')
-        .expect(200, {
-          data: [
+        .expect(200, [
             {
               "code": "SU",
               "name": "Aeroflot"
@@ -36,7 +35,7 @@ describe('airlines API', function() {
               "name": "Singapore Airlines"
             }
           ]
-        });
+      );
     });
   });
 });

@@ -9,8 +9,7 @@ describe('airports API', function() {
   describe('GET /airports', function() {
     it('returns airports list', async function() {
       await request.get('/airports?q=Melbourne')
-        .expect(200, {
-          data: [
+        .expect(200, [
             {
               "airportCode": "MLB",
               "airportName": "Melbourne International Arpt",
@@ -36,7 +35,7 @@ describe('airports API', function() {
               "timeZone": "Australia/Hobart"
             }
           ]
-        });
+      );
     });
   });
 });
