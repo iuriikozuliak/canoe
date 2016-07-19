@@ -1,7 +1,7 @@
 {
   "name": "canoe",
   "version": "0.1.0",
-  "description": "Flights and airlines codetask — Edit",
+  "description": "Flights and airlines codetask",
   "engines": {
     "node": ">=6.2.0",
     "npm": ">=3.8"
@@ -12,7 +12,7 @@
     "watch-client": "./node_modules/webpack/bin/webpack.js --watch",
     "start": "node dist/bin/server.js",
     "dev": "nodemon --exec npm run babel-node -- server/bin/server.js",
-    "build": "babel src -d dist -s",
+    "build": "babel server -d dist -s",
     "test": "mocha test/**/*.js --compilers js:babel-register --require test/_helpers",
     "test-watch": "npm run test -- --watch"
   },
@@ -47,6 +47,7 @@
     "css-loader": "^0.23.1",
     "eslint": "^3.0.1",
     "eslint-watch": "^2.1.13",
+    "extract-text-webpack-plugin": "^1.0.1",
     "icebug": "^0.1.6",
     "ignore-styles": "^4.0.0",
     "mocha": "^2.5.3",

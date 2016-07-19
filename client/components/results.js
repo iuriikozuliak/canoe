@@ -5,7 +5,7 @@ import _map        from 'lodash/fp/map';
 import _isEqual    from 'lodash/isEqual';
 import template    from '../utils/template';
 import ResultsItem from './results__item';
-import attachEvent from '../utils/attachEvent'
+import attachEvent from '../utils/attachEvent';
 import { 
   canoe__results,
   canoe__results__tabs,
@@ -77,8 +77,10 @@ export default class Results {
     return data.body;
   }
   render(props) {
-    const { flights = {}, dateRange = [], activeTab } = props;
+    const { flights = {}, dateRange = [], activeTab, query } = props;
     
+    if (Object.keys(query).length !== 3) return '<div id="results" />';
+
     return template`
       <div id="results" class=${ canoe__results }>
         <div class=${ canoe__results__tabs }>
@@ -88,8 +90,8 @@ export default class Results {
               data-date=${ date }
               class="${ canoe__results__tab + (date === activeTab && flights[date] ? ' ' + isTabActive : '')}">
               ${ date }
-              ${ flights[date] ? '' : 'Loading...' }
-              <div class=${ canoe__results__tab__price }>
+              <div class="${ canoe__results__tab__price }">
+                ${ flights[date] ? '' : 'Loading...' }
                 ${ flights[date] ? _sortBy(v => v.price)(flights[date])[0].price : '' }
               </div>
             </div>`
@@ -100,7 +102,7 @@ export default class Results {
                 _sortBy(v => v.price),
                 _map(ResultsItem)
             )(flights[activeTab])
-            : 'Loading...' }
+            : '' }
       </div>`;
   }
 }
